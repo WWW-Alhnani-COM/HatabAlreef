@@ -114,11 +114,6 @@
   .hero-photo-credit{position:absolute; left:1rem; bottom:.6rem; z-index:6; font-size:.62rem; color:rgba(243,233,216,.35); letter-spacing:.02em;}
   .hero-photo-credit a{color:inherit; text-decoration:none;}
   #embers{position:absolute; inset:0; z-index:2; pointer-events:none;}
-  .skyline{position:absolute; right:0; bottom:0; width:100%; height:56%; z-index:1;}
-  .tower-layer{position:absolute; bottom:0; right:0; width:100%; height:100%; display:flex; align-items:flex-end; justify-content:center; gap:0;}
-  .tower{position:relative; flex-shrink:0;}
-  .tower .band{position:absolute; right:8%; left:8%; height:5px; background:linear-gradient(90deg, transparent, var(--gypsum-dim), transparent); opacity:.5;}
-  .tower .win{position:absolute; width:9px; height:13px; border-top-left-radius:9px; border-top-right-radius:9px; background:var(--amber); opacity:0;}
 
   .hero-center{position:relative; z-index:5; text-align:center; padding-top:2vh;}
   .hero-arch-wrap{width:150px; margin:0 auto 1.1rem; }
@@ -327,7 +322,6 @@
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
   <canvas id="embers"></canvas>
-  <div class="skyline" id="skyline"></div>
 
   <div class="hero-center">
     <div class="hero-arch-wrap"><img class="logo-img" data-logo src="FB_IMG_1785275965168 (3).png" alt="شعار مطاعم حطب الريف" style="background: transparent;"></div>
@@ -511,7 +505,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <img class="logo-img" data-logo src="FB_IMG_1785275965168 (3).svg" alt="شعار مطاعم حطب الريف" style="width:56px;height:56px;margin-bottom:.6rem;background: transparent;">
+        <img class="logo-img" data-logo src="FB_IMG_1785275965168 (3).png" alt="شعار مطاعم حطب الريف" style="width:56px;height:56px;margin-bottom:.6rem;background: transparent;">
         <div class="name">حطب الريف</div>
         <p>مطاعم حطب الريف — أطباق يمنية شعبية أصيلة، تُطهى على نار الحطب بوصفات البيت.</p>
         <div class="social-row">
@@ -579,48 +573,6 @@ document.getElementById('qamariyaFeature').innerHTML = buildQamariya(200, 7);
 document.getElementById('qamariyaDivider1').innerHTML = buildQamariya(140, 7);
 document.getElementById('qamariyaDivider2').innerHTML = buildQamariya(140, 7);
 
-/* ============ Tower skyline (parallax layers) ============ */
-const skyline = document.getElementById('skyline');
-function makeLayer(count, opacity, baseH, hueShift, z){
-  const layer = document.createElement('div');
-  layer.className = 'tower-layer';
-  layer.style.opacity = opacity;
-  layer.style.transform = `translateZ(${z}px)`;
-  for(let i=0;i<count;i++){
-    const t = document.createElement('div');
-    const w = 26 + Math.random()*30;
-    const hgt = baseH + Math.random()*90;
-    t.className = 'tower';
-    t.style.width = w+'px';
-    t.style.height = hgt+'px';
-    t.style.background = `linear-gradient(180deg, hsl(18 ${30-hueShift}% ${16+hueShift}%), hsl(18 30% 8%))`;
-    t.style.marginInline = '1px';
-    const band = document.createElement('div');
-    band.className='band';
-    band.style.top = '14px';
-    t.appendChild(band);
-    for(let j=0;j<Math.floor(hgt/34);j++){
-      const win = document.createElement('div');
-      win.className='win';
-      win.style.right = (10 + (j%3)*10)+'px';
-      win.style.bottom = (30 + j*32)+'px';
-      win.style.transitionDelay = (j*70)+'ms';
-      win.style.transition = 'opacity 1s ease';
-      t.appendChild(win);
-    }
-    layer.appendChild(t);
-  }
-  return layer;
-}
-skyline.style.display='flex';
-skyline.style.perspective='800px';
-skyline.appendChild(makeLayer(18, .35, 90, 10, -60));
-skyline.appendChild(makeLayer(16, .6, 130, 4, -20));
-skyline.appendChild(makeLayer(14, 1, 170, 0, 0));
-
-/* light up windows once hero is visible */
-setTimeout(()=>{document.querySelectorAll('.win').forEach(w=>w.style.opacity = .85*Math.random()+.15);}, 400);
-
 /* ============ Ember particles (canvas) ============ */
 function emberField(canvasId, count){
   const canvas = document.getElementById(canvasId);
@@ -677,16 +629,7 @@ const io = new IntersectionObserver((entries)=>{
 }, {threshold:.18});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* ============ 3D parallax: skyline depth + fire logs on scroll ============ */
-const heroSection = document.getElementById('hero');
-window.addEventListener('scroll', ()=>{
-  const y = window.scrollY;
-  const ratio = Math.min(y / (window.innerHeight*.9), 1);
-  skyline.style.transform = `rotateX(${ratio*6}deg) translateY(${ratio*40}px)`;
-  const arch = document.querySelector('.hero-arch-wrap');
-  if(arch) arch.style.transform = `scale(${1+ratio*.12}) translateY(${-ratio*10}px)`;
-}, {passive:true});
-
+/* ============ 3D parallax: fire logs on scroll ============ */
 const logs3d = document.getElementById('logs3d');
 window.addEventListener('scroll', ()=>{
   const rect = document.getElementById('fire').getBoundingClientRect();
