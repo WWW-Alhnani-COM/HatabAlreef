@@ -96,19 +96,11 @@
   .navlinks, .nav-cta{ }
   .menu-btn{display:none;}
 
-  /* ---------- QAMARIYA (signature motif) ---------- */
-  .qamariya{ display:block; filter:drop-shadow(0 0 18px rgba(232,163,61,.25)); }
-  .qamariya path, .qamariya polygon{ transition:opacity 1.1s var(--ease), fill .6s; }
-
   /* ---------- HERO ---------- */
   .hero{
     height:100vh; min-height:640px;
     display:flex; align-items:center; justify-content:center;
     position:relative; overflow:hidden;
-    perspective:1200px;
-    background:
-      radial-gradient(ellipse 70% 55% at 50% 18%, rgba(224,103,42,.18), transparent 60%),
-      linear-gradient(180deg, rgba(13,9,6,.88) 0%, rgba(23,15,12,.93) 45%, #1c130f 100%);
   }
   #heroVideo{
     position:absolute;
@@ -116,44 +108,137 @@
     width:100%;
     height:100%;
     object-fit:cover;
+    z-index:0;
+  }
+  /* طبقة سوداء شفافة */
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.5);
     z-index:1;
   }
-  .hero-photo-credit{position:absolute; left:1rem; bottom:.6rem; z-index:6; font-size:.62rem; color:rgba(243,233,216,.35); letter-spacing:.02em;}
-  .hero-photo-credit a{color:inherit; text-decoration:none;}
-  #embers{position:absolute; inset:0; z-index:2; pointer-events:none;}
-
-  .hero-center{position:relative; z-index:5; text-align:center; padding-top:2vh;}
-  .hero-arch-wrap{width:150px; margin:0 auto 1.1rem; }
-  .hero-arch-wrap .logo-img{width:100%; height:auto; filter:drop-shadow(0 0 30px rgba(224,103,42,.35));}
-  .hero-eyebrow{justify-content:center; margin-bottom:1.1rem;}
+  /* دخان خفيف */
+  #smokeCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:2;
+    pointer-events:none;
+    opacity:0.3;
+  }
+  #embers{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+  }
+  .hero-center{
+    position:relative;
+    z-index:5;
+    text-align:center;
+    padding-top:2vh;
+  }
+  .hero-arch-wrap{
+    width:150px;
+    margin:0 auto 1.1rem;
+  }
+  .hero-arch-wrap .logo-img{
+    width:100%;
+    height:auto;
+    filter:drop-shadow(0 0 30px rgba(224,103,42,.35));
+  }
+  .hero-eyebrow{
+    justify-content:center;
+    margin-bottom:1.1rem;
+  }
   .hero-eyebrow::before{display:none;}
-  .hero-eyebrow::after{content:"";width:26px;height:1px;background:linear-gradient(270deg, var(--amber), transparent);}
+  .hero-eyebrow::after{
+    content:"";
+    width:26px;
+    height:1px;
+    background:linear-gradient(270deg, var(--amber), transparent);
+  }
   .hero h1{
     font-size:clamp(2.6rem, 7vw, 5.4rem);
     color:var(--gypsum);
     line-height:1.15;
     text-shadow:0 0 40px rgba(224,103,42,.25);
   }
-  .hero h1 em{font-style:normal; color:var(--amber);}
+  .hero h1 em{
+    font-style:normal;
+    color:var(--amber);
+  }
   .hero p.tag{
-    max-width:520px; margin:1.3rem auto 0; color:var(--gypsum-dim);
-    font-size:1.05rem; line-height:1.9;
+    max-width:520px;
+    margin:1.3rem auto 0;
+    color:var(--gypsum-dim);
+    font-size:1.05rem;
+    line-height:1.9;
   }
-  .hero-ctas{display:flex; gap:1rem; justify-content:center; margin-top:2.4rem; flex-wrap:wrap;}
+  .hero-ctas{
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    margin-top:2.4rem;
+    flex-wrap:wrap;
+  }
   .btn{
-    font-family:'Reem Kufi',sans-serif; font-size:.86rem; letter-spacing:.04em;
-    padding:.95rem 2.1rem; border-radius:2px; cursor:pointer; border:1px solid transparent;
+    font-family:'Reem Kufi',sans-serif;
+    font-size:.86rem;
+    letter-spacing:.04em;
+    padding:.95rem 2.1rem;
+    border-radius:2px;
+    cursor:pointer;
+    border:1px solid transparent;
     transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s, color .3s;
-    display:inline-flex; align-items:center; gap:.5rem;
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
   }
-  .btn-solid{background:linear-gradient(120deg, var(--ember-2), var(--ember)); color:var(--gypsum); box-shadow:0 14px 30px -14px rgba(193,68,14,.7);}
-  .btn-solid:hover{transform:translateY(-3px); box-shadow:0 20px 36px -14px rgba(193,68,14,.85);}
-  .btn-ghost{border-color:rgba(243,233,216,.35); color:var(--gypsum);}
-  .btn-ghost:hover{border-color:var(--amber); color:var(--amber); transform:translateY(-3px);}
-
-  .scroll-cue{position:absolute; bottom:2.4rem; left:50%; transform:translateX(-50%); z-index:5; display:flex; flex-direction:column; align-items:center; gap:.5rem; color:var(--gypsum-dim); font-size:.72rem;}
-  .scroll-cue .line{width:1px; height:38px; background:linear-gradient(180deg, var(--amber), transparent); animation:cuemove 2.2s ease-in-out infinite;}
-  @keyframes cuemove{0%{transform:scaleY(.4); transform-origin:top;} 50%{transform:scaleY(1); transform-origin:top;} 100%{transform:scaleY(.4); transform-origin:bottom;}}
+  .btn-solid{
+    background:linear-gradient(120deg, var(--ember-2), var(--ember));
+    color:var(--gypsum);
+    box-shadow:0 14px 30px -14px rgba(193,68,14,.7);
+  }
+  .btn-solid:hover{
+    transform:translateY(-3px);
+    box-shadow:0 20px 36px -14px rgba(193,68,14,.85);
+  }
+  .btn-ghost{
+    border-color:rgba(243,233,216,.35);
+    color:var(--gypsum);
+  }
+  .btn-ghost:hover{
+    border-color:var(--amber);
+    color:var(--amber);
+    transform:translateY(-3px);
+  }
+  /* سهم النزول */
+  .scroll-cue{
+    position:absolute;
+    bottom:2.4rem;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:5;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.5rem;
+    color:var(--gypsum-dim);
+    font-size:.72rem;
+  }
+  .scroll-cue .line{
+    width:1px;
+    height:38px;
+    background:linear-gradient(180deg, var(--amber), transparent);
+    animation:cuemove 2.2s ease-in-out infinite;
+  }
+  @keyframes cuemove{
+    0%{transform:scaleY(.4); transform-origin:top;}
+    50%{transform:scaleY(1); transform-origin:top;}
+    100%{transform:scaleY(.4); transform-origin:bottom;}
+  }
 
   /* ---------- REVEAL ---------- */
   .reveal{opacity:0; transform:translateY(38px) rotateX(6deg); transform-origin:top center; transition:opacity 1s var(--ease), transform 1s var(--ease);}
@@ -332,27 +417,36 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
-  <canvas id="embers"></canvas>
-  
   <!-- فيديو الخلفية -->
   <video autoplay muted loop playsinline id="heroVideo">
     <source src="hero-video.mp4" type="video/mp4">
     <source src="hero-video.webm" type="video/webm">
   </video>
+  
+  <!-- طبقة سوداء شفافة -->
+  <div class="hero-overlay"></div>
+  
+  <!-- دخان خفيف -->
+  <canvas id="smokeCanvas"></canvas>
+  
+  <!-- جمر/شرر -->
+  <canvas id="embers"></canvas>
 
   <div class="hero-center">
-    <div class="hero-arch-wrap"><img class="logo-img" data-logo src="FB_IMG_1785275965168 (3).png" alt="شعار مطاعم حطب الريف" style="background: transparent;"></div>
+    <div class="hero-arch-wrap">
+      <img class="logo-img" data-logo src="FB_IMG_1785275965168 (3).png" alt="شعار مطاعم حطب الريف" style="background: transparent;">
+    </div>
     <div class="eyebrow hero-eyebrow">من قلب اليمن</div>
     <h1>نار حطبٍ حقيقية<br><em>ونكهة اليمن الأصيلة</em></h1>
-    <p class="tag">وصفات بيتنا كما تربّينا عليها، تُطهى ببطء على نار الحطب، في أجواءٍ تعيدكم إلى دفء العائلة وذكرى الوطن.</p>
+    <p class="tag">وصفات بيتنا كما تربّينا عليها</p>
     <div class="hero-ctas">
       <a href="tel:+966112488110" class="btn btn-solid">اطلب الآن</a>
-      <a href="#branches" class="btn btn-ghost">فروعنا وموقعنا</a>
+      <a href="#branches" class="btn btn-ghost">فروعنا</a>
     </div>
   </div>
 
+  <!-- سهم النزول -->
   <div class="scroll-cue"><span>مرّر للأسفل</span><span class="line"></span></div>
-  <div class="hero-photo-credit">فيديو: Pexels / Unsplash</div>
 </section>
 
 <!-- ============ STORY ============ -->
@@ -564,7 +658,7 @@
 </footer>
 
 <script>
-/* ============ Qamariya generator (signature stained-glass arch) ============ */
+/* ============ Qamariya generator ============ */
 function buildQamariya(size, segs){
   const w = size, h = size*0.62, cx = w/2, cy = h;
   const colors = ['#e8a33d','#a6293b','#2f6f4f','#e0672a'];
@@ -589,7 +683,56 @@ document.getElementById('qamariyaFeature').innerHTML = buildQamariya(200, 7);
 document.getElementById('qamariyaDivider1').innerHTML = buildQamariya(140, 7);
 document.getElementById('qamariyaDivider2').innerHTML = buildQamariya(140, 7);
 
-/* ============ Ember particles (canvas) ============ */
+/* ============ Smoke particles (دخان خفيف) ============ */
+function smokeEffect(canvasId){
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [];
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  function resize(){
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  
+  const count = reduced ? 8 : 25;
+  for(let i=0;i<count;i++){
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 80 + 40,
+      speedX: (Math.random() - 0.5) * 0.3,
+      speedY: -(Math.random() * 0.2 + 0.05),
+      opacity: Math.random() * 0.15 + 0.05
+    });
+  }
+  
+  function tick(){
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      if(p.y < -p.r) { p.y = h + p.r; p.x = Math.random() * w; }
+      if(p.x < -p.r) p.x = w + p.r;
+      if(p.x > w + p.r) p.x = -p.r;
+      
+      const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      gradient.addColorStop(0, `rgba(200, 180, 160, ${p.opacity})`);
+      gradient.addColorStop(1, 'rgba(200, 180, 160, 0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+}
+smokeEffect('smokeCanvas');
+
+/* ============ Ember particles (جمر/شرر) ============ */
 function emberField(canvasId, count){
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext('2d');
@@ -656,7 +799,7 @@ window.addEventListener('scroll', ()=>{
   }
 }, {passive:true});
 
-/* ============ 3D tilt on dish cards (mouse-follow depth) ============ */
+/* ============ 3D tilt on dish cards ============ */
 document.querySelectorAll('.dish').forEach(card=>{
   card.addEventListener('mousemove', (e)=>{
     const r = card.getBoundingClientRect();
@@ -668,4 +811,4 @@ document.querySelectorAll('.dish').forEach(card=>{
 });
 </script>
 </body>
-  </html>
+</html>
